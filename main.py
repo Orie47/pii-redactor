@@ -26,6 +26,12 @@ model = GLiNER.from_pretrained(model_path)
 class Prompt(BaseModel):
     text: str
 
+# ----------- Health Route -----------
+
+@app.get("/")
+def health():
+    return {"status": "ok", "message": "PII redactor service is running"}
+
 # ----------- API Route -----------
 
 @app.post("/redact")
