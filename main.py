@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from gliner import GLiNER
 from huggingface_hub import snapshot_download
 
+print(">>> Render PORT:", os.environ.get("PORT"))
 app = FastAPI()
 
 # ----------- Model Loading -----------
