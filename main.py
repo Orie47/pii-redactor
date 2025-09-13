@@ -2,15 +2,31 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from gliner import GLiNER
-import uvicorn
+from huggingface_hub import snapshot_download
 
 app = FastAPI()
 
-# Load the lightweight model
-model = GLiNER.from_pretrained("urchade/gliner_small-v2")
+# ----------- Model Loading -----------
+
+# Preferred location for caching model (Render disk if available, otherwise local)
+CACHE_DIR = os.environ.get("MODEL_CACHE", "./models")
+
+# Download/cached path
+model_path = snapshot_download(
+    "urchade/gliner_small-v2",
+    local_dir=CACHE_DIR,
+    local_dir_use_symlinks=False  # ensures files really go into this dir
+)
+
+# Load the lightweight GLiNER model
+model = GLiNER.from_pretrained(model_path)
+
+# ----------- Request Schema -----------
 
 class Prompt(BaseModel):
     text: str
+
+# ----------- API Route -----------
 
 @app.post("/redact")
 def redact(prompt: Prompt):
@@ -38,3 +54,10 @@ def redact(prompt: Prompt):
         "redacted": redacted,
         "entities": entities
     }
+
+# ----------- Notes -----------
+# ❌ Do NOT include uvicorn.run() here for Render
+# Render uses the Start Command:
+#   uvicorn main:app --host 0.0.0.0 --port $PORT
+# For local testing:
+#   uvicorn main:app --reload
