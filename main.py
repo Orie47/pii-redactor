@@ -1,10 +1,12 @@
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from gliner import GLiNER
+import uvicorn
 
 app = FastAPI()
 
-# Use the “small” variant instead of the heavier model
+# Load the lightweight model
 model = GLiNER.from_pretrained("urchade/gliner_small-v2")
 
 class Prompt(BaseModel):
@@ -36,3 +38,8 @@ def redact(prompt: Prompt):
         "redacted": redacted,
         "entities": entities
     }
+
+# Required for Render deployment or local testing
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
