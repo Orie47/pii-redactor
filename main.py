@@ -1,10 +1,17 @@
 import os
+import logging
+
+# Configure logging so messages always show in Render logs
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+
+# Log the PORT environment variable Render provides
+logging.info(f">>> Render PORT env: {os.environ.get('PORT')}")
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from gliner import GLiNER
 from huggingface_hub import snapshot_download
 
-print(">>> Render PORT:", os.environ.get("PORT"))
 app = FastAPI()
 
 # ----------- Model Loading -----------
