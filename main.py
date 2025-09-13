@@ -3,7 +3,9 @@ from pydantic import BaseModel
 from gliner import GLiNER
 
 app = FastAPI()
-model = GLiNER.from_pretrained("urchade/gliner_multi_pii-v1")
+
+# Use the “small” variant instead of the heavier model
+model = GLiNER.from_pretrained("urchade/gliner_small-v2")
 
 class Prompt(BaseModel):
     text: str
