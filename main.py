@@ -38,8 +38,3 @@ def redact(prompt: Prompt):
         "redacted": redacted,
         "entities": entities
     }
-
-# Required for Render deployment or local testing
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
