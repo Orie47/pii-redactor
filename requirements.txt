@@ -1,18 +1,7 @@
-fastapi==0.111.0
-uvicorn[standard]==0.30.0
-
-# HuggingFace stack
-transformers==4.42.4
-huggingface-hub==0.23.2
-
-# Torch (CPU wheel will be chosen automatically on Render)
-torch==2.3.1
-
-# GLiNER
-gliner==0.2.4
-
-# Utils
-wordfreq==3.1.1
-pydantic<2.0
-datasets==2.20.0
-sentencepiece==0.2.0
+fastapi
+uvicorn
+transformers
+torch
+gliner
+huggingface-hub
+wordfreq
