@@ -3,5 +3,4 @@ uvicorn
 transformers
 torch
 gliner
-huggingface-hub
-wordfreq
+huggingface_hub
