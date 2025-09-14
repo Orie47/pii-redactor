@@ -166,7 +166,8 @@ def enforce_final_email_redaction(text: str):
 # ------------------------------
 # Routes
 # ------------------------------
-@app.get("/")
+@app.get("/", include_in_schema=False)
+@app.head("/", include_in_schema=False)
 def health():
     return {"status": "ok", "message": "PII redactor service is running"}
 
