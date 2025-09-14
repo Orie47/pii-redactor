@@ -141,8 +141,9 @@ def enforce_final_redaction(text: str):
 # ------------------------------
 # Routes
 # ------------------------------
-@app.get("/", include_in_schema=False)
+@app.api_route("/", methods=["GET", "HEAD"], include_in_schema=False)
 def health():
+    """Health check for Render (supports GET + HEAD)."""
     return {"status": "ok", "message": "PII redactor service is running"}
 
 @app.post("/redact")
