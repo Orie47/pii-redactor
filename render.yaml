@@ -2,5 +2,12 @@ services:
   - type: web
     name: pii-redactor
     env: python
+    plan: starter         # or 'standard' if model load time is too slow
+    pythonVersion: 3.10   # pin Python version for consistency
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MODEL_CACHE
+        value: /opt/render/project/.model_cache
+      - key: DO_NOT_REDACT_EXTRA
+        value: ""   # you can override in the Render dashboard if needed
