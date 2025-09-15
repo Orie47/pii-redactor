@@ -176,7 +176,7 @@ def redact(prompt: Prompt):
 # ------------------------------
 # Notes
 # ------------------------------
-# ❌ Do NOT include uvicorn.run() here for Render
+# Do NOT include uvicorn.run() here for Render
 # Render uses the Start Command:
 #   uvicorn main:app --host 0.0.0.0 --port $PORT
 # For local testing:
